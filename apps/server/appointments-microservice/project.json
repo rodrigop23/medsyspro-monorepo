@@ -1,0 +1,26 @@
+{
+  "name": "appointments-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/appointments-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "appointments-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "appointments-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "appointments-microservice:build:production"
+        }
+      }
+    }
+  }
+}

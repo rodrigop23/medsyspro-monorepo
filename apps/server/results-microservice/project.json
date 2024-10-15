@@ -1,0 +1,26 @@
+{
+  "name": "results-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/results-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "results-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "results-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "results-microservice:build:production"
+        }
+      }
+    }
+  }
+}

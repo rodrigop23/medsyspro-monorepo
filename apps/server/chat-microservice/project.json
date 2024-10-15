@@ -1,0 +1,26 @@
+{
+  "name": "chat-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/chat-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "chat-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "chat-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "chat-microservice:build:production"
+        }
+      }
+    }
+  }
+}

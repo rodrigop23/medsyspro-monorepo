@@ -1,0 +1,26 @@
+{
+  "name": "chatbot-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/chatbot-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "chatbot-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "chatbot-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "chatbot-microservice:build:production"
+        }
+      }
+    }
+  }
+}

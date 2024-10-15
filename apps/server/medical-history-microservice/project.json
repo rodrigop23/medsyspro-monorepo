@@ -1,0 +1,26 @@
+{
+  "name": "medical-history-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/medical-history-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "medical-history-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "medical-history-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "medical-history-microservice:build:production"
+        }
+      }
+    }
+  }
+}

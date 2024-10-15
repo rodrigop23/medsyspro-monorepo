@@ -1,0 +1,26 @@
+{
+  "name": "prescription-microservice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/prescription-microservice/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "prescription-microservice:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "prescription-microservice:build:development"
+        },
+        "production": {
+          "buildTarget": "prescription-microservice:build:production"
+        }
+      }
+    }
+  }
+}
