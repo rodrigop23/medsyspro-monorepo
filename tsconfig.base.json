@@ -13,7 +13,10 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@medsyspro-monorepo/prisma-client": ["libs/prisma-client/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
