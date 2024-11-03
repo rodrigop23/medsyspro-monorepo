@@ -93,7 +93,7 @@ export const getCurrentUserAction = cache(async () => {
     const sessionToken = getSessionToken();
 
     if (!sessionToken) {
-      return { session: null, user: null };
+      return null;
     }
 
     const response = await fetch(url.toString(), {
@@ -105,12 +105,11 @@ export const getCurrentUserAction = cache(async () => {
 
     const data = await response.json();
 
-    return data;
+    console.log("USUARIO:", data.user);
+
+    return data.user || null;
   } catch (error) {
     console.log(error);
-    return {
-      session: null,
-      user: null,
-    };
+    return null;
   }
 });
