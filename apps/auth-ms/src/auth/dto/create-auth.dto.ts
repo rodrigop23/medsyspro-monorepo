@@ -1,11 +1,6 @@
-import {
-  IsDate,
-  IsEmail,
-  IsEnum,
-  IsString,
-  IsStrongPassword,
-} from 'class-validator';
+import { IsEmail, IsEnum, IsString, IsStrongPassword } from 'class-validator';
 import { DocumentTypeList, GenderList } from '../enum/user.enum';
+import { DocumentType, Gender } from '@repo/user-db-prisma';
 
 export class CreateAuthDto {
   @IsString()
@@ -30,17 +25,19 @@ export class CreateAuthDto {
   password: string;
 
   @IsEnum(GenderList, {
-    message: `Valid gender values are ${GenderList}`,
+    message: `Valid gender values are ${Object.values(GenderList).join(', ')}`,
   })
-  gender: string;
+  gender: Gender;
 
-  @IsDate()
-  birthdate: Date;
+  @IsString()
+  birthdate: string;
 
   @IsEnum(DocumentTypeList, {
-    message: `Valid document type values are ${DocumentTypeList}`,
+    message: `Valid document type values are ${Object.values(
+      DocumentTypeList,
+    ).join(', ')}`,
   })
-  documentType: string;
+  documentType: DocumentType;
 
   @IsString()
   documentNumber: string;
