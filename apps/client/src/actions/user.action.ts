@@ -1,12 +1,12 @@
 "use server";
 
 import envs from "@/config/envs";
-import { IGenericResponse } from "@/interface/generic.interface";
+import { IRegisterResponse } from "@/interface/generic.interface";
 import { RegisterUserType } from "@/lib/zod-schemas/user-schema";
 
 export const registerUserAction = async (
   userData: RegisterUserType
-): Promise<IGenericResponse> => {
+): Promise<IRegisterResponse> => {
   try {
     const url = new URL("/api/auth/register", envs.NEXT_PUBLIC_AUTH_MS);
 
@@ -33,18 +33,16 @@ export const registerUserAction = async (
 
     const data = await response.json();
 
-    if (!data) {
-      throw new Error("Error en el servidor. Intente de nuevo.");
-    }
+    console.log(data);
 
     // setTokenCookie(data.jwt);
 
-    return {
-      ok: true,
-      message: "Usuario creado con éxito",
-    };
+    return data;
   } catch (error) {
     console.log(error);
-    throw new Error("Algo salió mal. Intente de nuevo.");
+    return {
+      ok: false,
+      message: "Algo salió mal. Intente de nuevo.",
+    };
   }
 };

@@ -69,7 +69,18 @@ export default function SignUpForm() {
 
   const onSubmit = async (data: RegisterUserType) => {
     try {
+      setGenericError(null);
+
       const result = await registerUserAction(data);
+      // todo: validar email, phone y documentNumber duplicados
+      console.log(result);
+
+      if (result.duplicated) {
+        return form.setError("email", {
+          type: "manual",
+          message: "El correo ya se encuentra registrado",
+        });
+      }
 
       if (!result.ok) {
         return setGenericError(result.message);
