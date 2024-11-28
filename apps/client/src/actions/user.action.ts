@@ -37,10 +37,8 @@ export const registerUserAction = async (
 
     const data = await response.json();
 
-    console.log(data);
-
     if (data.session && data.token) {
-      setSessionTokenCookie(data.token, data.session.expiresAt);
+      setSessionTokenCookie(data.token, new Date(data.session.expiresAt));
     }
 
     return data;
@@ -74,10 +72,8 @@ export const loginUserAction = async (
 
     const data = await response.json();
 
-    console.log(data);
-
     if (data.session && data.token) {
-      setSessionTokenCookie(data.token, data.session.expiresAt);
+      setSessionTokenCookie(data.token, new Date(data.session.expiresAt));
     }
     return data;
   } catch (error) {

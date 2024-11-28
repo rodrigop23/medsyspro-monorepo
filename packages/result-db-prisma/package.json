@@ -1,28 +1,26 @@
 {
-    "name": "@repo/result-deb-prisma",
-    "version": "0.0.0",
-    "private": true,
-    "main": "dist/index.js",
-    "source": "src/index.ts",
-    "types": "src/index.ts",
-    "files": [
-      "dist/**"
-    ],
-    "scripts": {
-      "db:generate": "prisma generate",
-      "db:push": "prisma db push --skip-generate",
-      "generate": "prisma generate",
-      "build": "tsc",
-      "dev": "tsc -w"
-    },
-    "devDependencies": {
-      "@repo/typescript-config": "workspace:*",
-      "prisma": "^5.21.1",
-      "tsx": "^4.19.2",
-      "typescript": "5.5.4"
-    },
-    "dependencies": {
-      "@prisma/client": "^5.21.1"
-    }
+  "name": "@repo/result-deb-prisma",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate",
+    "generate": "prisma generate",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "prisma": "^5.21.1",
+    "tsx": "^4.19.2",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.21.1"
   }
-  
+}
