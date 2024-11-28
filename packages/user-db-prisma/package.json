@@ -10,17 +10,18 @@
   ],
   "scripts": {
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate"
+    "db:push": "prisma db push --skip-generate",
+    "generate": "prisma generate",
+    "build": "tsc",
+    "dev": "tsc -w"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "5.5.4",
-    "prisma": "^5.21.1"
+    "prisma": "^5.21.1",
+    "tsx": "^4.19.2",
+    "typescript": "5.5.4"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1"
-  },
-  "exports": {
-    ".": "./src/index.ts"
   }
 }
