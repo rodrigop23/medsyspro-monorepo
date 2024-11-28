@@ -12,16 +12,15 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "generate": "prisma generate",
-    "build": "tsc",
-    "dev": "tsc -w"
+    "build": "tsc"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "prisma": "^5.22.0",
+    "prisma": "^5.21.1",
     "tsx": "^4.19.2",
     "typescript": "5.5.4"
   },
   "dependencies": {
-    "@prisma/client": "^5.22.0"
+    "@prisma/client": "^5.21.1"
   }
 }
