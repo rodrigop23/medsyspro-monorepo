@@ -5,6 +5,7 @@ import {
   ILoginResponse,
   IRegisterResponse,
 } from "@/interface/generic.interface";
+import { setSessionTokenCookie } from "@/lib/session";
 import { LoginUserType, RegisterUserType } from "@/lib/zod-schemas/user-schema";
 
 export const registerUserAction = async (
@@ -38,7 +39,9 @@ export const registerUserAction = async (
 
     console.log(data);
 
-    // setTokenCookie(data.jwt);
+    if (data.session && data.token) {
+      setSessionTokenCookie(data.token, data.session.expiresAt);
+    }
 
     return data;
   } catch (error) {
@@ -73,8 +76,9 @@ export const loginUserAction = async (
 
     console.log(data);
 
-    // setTokenCookie(data.jwt);
-
+    if (data.session && data.token) {
+      setSessionTokenCookie(data.token, data.session.expiresAt);
+    }
     return data;
   } catch (error) {
     console.log(error);
