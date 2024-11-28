@@ -5,8 +5,9 @@ import {
   ILoginResponse,
   IRegisterResponse,
 } from "@/interface/generic.interface";
-import { setSessionTokenCookie } from "@/lib/session";
+import { getSessionToken, setSessionTokenCookie } from "@/lib/session";
 import { LoginUserType, RegisterUserType } from "@/lib/zod-schemas/user-schema";
+import { cache } from "react";
 
 export const registerUserAction = async (
   userData: RegisterUserType
@@ -84,3 +85,32 @@ export const loginUserAction = async (
     };
   }
 };
+
+export const getCurrentUserAction = cache(async () => {
+  try {
+    const url = new URL("/api/auth/me", envs.NEXT_PUBLIC_AUTH_MS);
+
+    const sessionToken = getSessionToken();
+
+    if (!sessionToken) {
+      return { session: null, user: null };
+    }
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${sessionToken}`,
+      },
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      session: null,
+      user: null,
+    };
+  }
+});

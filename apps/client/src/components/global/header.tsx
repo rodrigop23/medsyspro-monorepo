@@ -4,8 +4,11 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { getCurrentUserAction } from "@/actions/user.action";
 
-export default function Header() {
+export default async function Header() {
+  const user = await getCurrentUserAction();
+
   return (
     <nav className="bg-white shadow-md fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,13 +48,13 @@ export default function Header() {
               Servicios
             </Link>
             <Link
-              href="sign-in"
+              href={user ? "portal" : "sign-in"}
               className={cn(
                 buttonVariants({ variant: "outline" }),
                 "whitespace-nowrap"
               )}
             >
-              Agendar Cita
+              {user ? "Ingresar al Portal" : "Agendar Cita"}
             </Link>
           </div>
           <div className="flex lg:hidden items-center space-x-2">
@@ -91,13 +94,13 @@ export default function Header() {
                     Servicios
                   </Link>
                   <Link
-                    href="sign-in"
+                    href={user ? "portal" : "sign-in"}
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-start"
                     )}
                   >
-                    Agendar Cita
+                    {user ? "Ingresar al Portal" : "Agendar Cita"}
                   </Link>
                 </nav>
               </SheetContent>
