@@ -29,7 +29,7 @@ export class ResultRepositoryImpl implements ResultRepository {
           type: result.type,
           filePath: result.filePath,
           nombre: result.nombre,
-          descripción: result.descripción,
+          descripcion: result.descripcion,
           createdAt: result.createdAt,
         },
       });
@@ -40,7 +40,7 @@ export class ResultRepositoryImpl implements ResultRepository {
         savedResult.type,
         savedResult.filePath,
         savedResult.nombre,
-        savedResult.descripción,
+        savedResult.descripcion,
         savedResult.createdAt,
       );
     }
