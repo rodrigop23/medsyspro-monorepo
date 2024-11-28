@@ -10,7 +10,7 @@ export default async function SignUpPage() {
   // }
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-2 my-10 sm:my-14 md:my-20">
+    <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-2 mt-28 mb-14 sm:mt-32 sm:mb-16">
       <SignUpForm />
     </div>
   );

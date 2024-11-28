@@ -11,7 +11,7 @@ export default async function SignInPage() {
   // }
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-24 lg:px-3 sm:px-10 transition-all duration-200 ease-in my-10 sm:my-14 md:my-20">
+    <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-24 lg:px-3 sm:px-10 transition-all duration-200 ease-in mt-28 mb-14 sm:mt-32 sm:mb-16">
       <SignInForm />
     </div>
   );

@@ -13,7 +13,7 @@ export default function Header() {
           <div className="flex items-center flex-shrink-0">
             <StethoscopeIcon className="h-8 w-8 text-teal-600 " />
             <span className="ml-2 text-xl font-semibold text-gray-800 whitespace-nowrap">
-              MedsysPro
+              MedSysPro
             </span>
           </div>
           <div className="hidden lg:flex items-center space-x-4">
