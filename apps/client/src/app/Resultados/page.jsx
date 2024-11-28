@@ -34,7 +34,7 @@ const Resultados = () => {
       <div className="w-full max-w-6xl bg-accent rounded-lg shadow-md overflow-hidden">
         {/* Encabezado */}
         <div className="bg-primary text-white text-center py-4">
-          <h1 className="text-2xl font-semibold">Módulo de Resultados</h1>
+          <h1 className="text-2xl font-semibold"> Resultados</h1>
         </div>
 
         <div className="flex">
