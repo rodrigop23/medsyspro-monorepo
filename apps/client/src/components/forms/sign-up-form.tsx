@@ -339,6 +339,7 @@ export default function SignUpForm() {
                           <Checkbox
                             checked={field.value}
                             onCheckedChange={field.onChange}
+                            className="data-[state=checked]:bg-teal-600 data-[state=checked]:border-teal-600"
                           />
                         </FormControl>
                         <FormLabel className="font-normal">

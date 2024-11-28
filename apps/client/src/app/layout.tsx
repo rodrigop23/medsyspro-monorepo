@@ -20,8 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${geistSans.variable} font-sans antialiased`}>
-        {children}
+      <body
+        className={`${geistSans.variable} font-sans antialiased min-h-screen flex flex-col`}
+      >
+        <main className="flex-1 flex flex-col">{children}</main>
       </body>
     </html>
   );

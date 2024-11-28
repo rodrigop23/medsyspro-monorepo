@@ -1,8 +1,11 @@
 "use server";
 
 import envs from "@/config/envs";
-import { IRegisterResponse } from "@/interface/generic.interface";
-import { RegisterUserType } from "@/lib/zod-schemas/user-schema";
+import {
+  ILoginResponse,
+  IRegisterResponse,
+} from "@/interface/generic.interface";
+import { LoginUserType, RegisterUserType } from "@/lib/zod-schemas/user-schema";
 
 export const registerUserAction = async (
   userData: RegisterUserType
@@ -21,6 +24,41 @@ export const registerUserAction = async (
       phone: userData.phone,
       birthdate: userData.birthdate,
       gender: userData.gender,
+    };
+
+    const response = await fetch(url.toString(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...dataToSend }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+
+    // setTokenCookie(data.jwt);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: "Algo salió mal. Intente de nuevo.",
+    };
+  }
+};
+
+export const loginUserAction = async (
+  userData: LoginUserType
+): Promise<ILoginResponse> => {
+  try {
+    const url = new URL("/api/auth/login", envs.NEXT_PUBLIC_AUTH_MS);
+
+    const dataToSend = {
+      email: userData.email,
+      password: userData.password,
     };
 
     const response = await fetch(url.toString(), {

@@ -82,6 +82,7 @@ export const loginUserSchema = z.object({
     .refine((value) => /[!@#$%^&*(),.?":{}|<>]/.test(value), {
       message: "La contraseña debe contener al menos un carácter especial",
     }),
+  remember: z.boolean().optional(),
 });
 
 export type LoginUserType = z.infer<typeof loginUserSchema>;
