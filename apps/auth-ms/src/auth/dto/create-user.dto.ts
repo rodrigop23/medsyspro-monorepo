@@ -2,7 +2,7 @@ import { IsEmail, IsEnum, IsString, IsStrongPassword } from 'class-validator';
 import { DocumentTypeList, GenderList } from '../enum/user.enum';
 import { DocumentType, Gender } from '@repo/user-db-prisma';
 
-export class CreateAuthDto {
+export class CreateUserDto {
   @IsString()
   name: string;
 

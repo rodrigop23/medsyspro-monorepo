@@ -1,16 +1,17 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/db-client/db-client.service';
 import * as bcrypt from 'bcrypt';
+import { LoginUserDto } from './dto/login-user.dto';
 @Injectable()
 export class AuthService {
   constructor(private prisma: PrismaService) {}
 
-  async createUser(createAuthDto: CreateAuthDto) {
+  async createUser(createUserDto: CreateUserDto) {
     try {
       const userExists = await this.prisma.user.findUnique({
         where: {
-          email: createAuthDto.email,
+          email: createUserDto.email,
         },
       });
 
@@ -23,19 +24,56 @@ export class AuthService {
         };
       }
 
-      const hashedPassword = bcrypt.hashSync(createAuthDto.password, 10);
+      const hashedPassword = bcrypt.hashSync(createUserDto.password, 10);
 
-      createAuthDto.password = hashedPassword;
+      createUserDto.password = hashedPassword;
 
       await this.prisma.user.create({
         data: {
-          ...createAuthDto,
+          ...createUserDto,
         },
       });
 
       return {
         ok: true,
         message: 'Usuario creado con éxito',
+      };
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('Error en el servidor');
+    }
+  }
+
+  async loginUser(loginUserDto: LoginUserDto) {
+    try {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          email: loginUserDto.email,
+        },
+      });
+
+      if (!user) {
+        return {
+          email: true,
+          message: 'Usuario no encontrado',
+        };
+      }
+
+      const passwordMatch = bcrypt.compareSync(
+        loginUserDto.password,
+        user.password,
+      );
+
+      if (!passwordMatch) {
+        return {
+          password: true,
+          message: 'Contraseña incorrecta',
+        };
+      }
+
+      return {
+        ok: true,
+        message: 'Inicio de sesión exitoso',
       };
     } catch (error) {
       console.error(error);
