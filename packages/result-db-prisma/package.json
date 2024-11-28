@@ -12,11 +12,11 @@
         ".": "./src/index.ts"
     },
     "scripts": {
-    "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate",
-    "generate": "prisma generate",
-    "build": "tsc",
-    "dev": "tsc -w"
+        "db:generate": "prisma generate",
+        "db:push": "prisma db push --skip-generate",
+        "generate": "prisma generate",
+        "build": "tsc",
+        "dev": "tsc -w"
     },
     "devDependencies": {
         "@repo/typescript-config": "workspace:*",

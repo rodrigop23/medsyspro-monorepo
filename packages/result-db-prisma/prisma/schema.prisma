@@ -12,3 +12,11 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Result {
+  id        String   @id @default(uuid())
+  patientId String
+  type      String
+  filePath  String
+  createdAt DateTime @default(now())
+}
