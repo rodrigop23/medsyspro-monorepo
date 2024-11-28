@@ -11,7 +11,7 @@ export class ChatService {
   }
 
   sendMessage(chatId: number, message: Message) {
-    // Add business logic to persist the message
+
   }
 
   createChat(doctorId: number, patientId: number) {
