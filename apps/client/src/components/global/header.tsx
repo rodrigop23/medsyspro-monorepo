@@ -13,12 +13,12 @@ export default async function Header() {
     <nav className="bg-white shadow-md fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center flex-shrink-0">
+          <Link href="/" className="flex items-center flex-shrink-0">
             <StethoscopeIcon className="h-8 w-8 text-teal-600 " />
             <span className="ml-2 text-xl font-semibold text-gray-800 whitespace-nowrap">
               MedSysPro
             </span>
-          </div>
+          </Link>
           <div className="hidden lg:flex items-center space-x-4">
             <Link
               href="medicos"
@@ -48,7 +48,7 @@ export default async function Header() {
               Servicios
             </Link>
             <Link
-              href={user ? "portal" : "sign-in"}
+              href={user ? "citas" : "sign-in"}
               className={cn(
                 buttonVariants({ variant: "outline" }),
                 "whitespace-nowrap"
@@ -94,7 +94,7 @@ export default async function Header() {
                     Servicios
                   </Link>
                   <Link
-                    href={user ? "portal" : "sign-in"}
+                    href={user ? "citas" : "sign-in"}
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-start"

@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   ActivityIcon,
   ChevronRightIcon,
@@ -12,6 +13,7 @@ import {
   StethoscopeIcon,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const services = [
@@ -69,12 +71,16 @@ export default function Home() {
                 Ofrecemos servicios médicos integrales con un equipo de
                 profesionales dedicados a su bienestar.
               </p>
-              <Button
-                size="lg"
-                className="bg-teal-600 hover:bg-teal-700 text-white"
+
+              <Link
+                href="citas"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "bg-teal-600 hover:bg-teal-700 text-white"
+                )}
               >
                 Agendar una Cita <ChevronRightIcon className="ml-2 h-4 w-4" />
-              </Button>
+              </Link>
             </div>
             <div className="md:w-1/2">
               <Image
@@ -199,13 +205,16 @@ export default function Home() {
             Agende una cita hoy y dé el primer paso hacia una vida más
             saludable.
           </p>
-          <Button
-            size="lg"
-            variant="outline"
-            className="bg-white text-teal-600 hover:bg-gray-100"
+
+          <Link
+            href="citas"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "bg-white text-teal-600 hover:bg-gray-100"
+            )}
           >
             Agendar una Cita Ahora
-          </Button>
+          </Link>
         </div>
       </section>
     </div>
