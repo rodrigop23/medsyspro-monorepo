@@ -3,6 +3,7 @@ import {
   ClockIcon,
   FileTextIcon,
   ImageIcon,
+  UserIcon,
 } from "lucide-react";
 
 import {
@@ -15,33 +16,73 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
-export default function NavOptions() {
-  const optionsData = [
-    {
-      id: 1,
-      title: "Citas",
-      icon: CalendarDaysIcon,
-      href: "/citas",
-    },
-    {
-      id: 2,
-      title: "Historial Médico",
-      icon: FileTextIcon,
-      href: "/historial-medico",
-    },
-    {
-      id: 3,
-      title: "Resultados",
-      icon: ClockIcon,
-      href: "/resultados",
-    },
-    {
-      id: 4,
-      title: "Imágenes",
-      icon: ImageIcon,
-      href: "/imagenes",
-    },
-  ];
+interface Props {
+  role: "ADMIN" | "DOCTOR" | "PATIENT";
+}
+
+export default function NavOptions({ role }: Props) {
+  const optionsData = {
+    PATIENT: [
+      {
+        id: 1,
+        title: "Citas",
+        icon: CalendarDaysIcon,
+        href: "/citas",
+      },
+      {
+        id: 2,
+        title: "Historial Médico",
+        icon: FileTextIcon,
+        href: "/historial-medico",
+      },
+      {
+        id: 3,
+        title: "Resultados",
+        icon: ClockIcon,
+        href: "/resultados",
+      },
+      {
+        id: 4,
+        title: "Imágenes",
+        icon: ImageIcon,
+        href: "/imagenes",
+      },
+    ],
+    DOCTOR: [
+      {
+        id: 1,
+        title: "Citas",
+        icon: CalendarDaysIcon,
+        href: "/citas",
+      },
+      {
+        id: 2,
+        title: "Pacientes",
+        icon: UserIcon,
+        href: "/pacientes",
+      },
+      {
+        id: 3,
+        title: "Resultados",
+        icon: ClockIcon,
+        href: "/resultados",
+      },
+    ],
+    ADMIN: [
+      {
+        id: 1,
+        title: "Usuarios",
+        icon: CalendarDaysIcon,
+        href: "/usuarios",
+      },
+      {
+        id: 2,
+        title: "Reportes",
+        icon: FileTextIcon,
+        href: "/reportes",
+      },
+    ],
+  };
 
   return (
     <SidebarGroup>
@@ -50,7 +91,7 @@ export default function NavOptions() {
       </SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu className="space-y-1">
-          {optionsData.map((option) => (
+          {optionsData[role].map((option) => (
             <SidebarMenuItem key={option.id}>
               <SidebarMenuButton asChild className="px-4 py-2 h-auto">
                 <Link
