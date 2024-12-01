@@ -1,15 +1,15 @@
-import { Controller, Get, Param , Post, Body} from "@nestjs/common";
-import { GetResultsUseCase } from "src/application/use-cases/get-results.use-case";
-import { DownloadResultsUseCase } from "src/application/use-cases/download-results.use-case";
-import { CreateResultUseCase } from "src/application/use-cases/create-results.use-case";
-import { Result } from "src/domain/entities/result.entity";
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { GetResultsUseCase } from 'src/application/use-cases/get-results.use-case';
+import { DownloadResultsUseCase } from 'src/application/use-cases/download-results.use-case';
+import { CreateResultUseCase } from 'src/application/use-cases/create-results.use-case';
+import { Result } from 'src/domain/entities/result.entity';
 
 @Controller('results')
 export class ResultController {
   constructor(
     private readonly getResultsUseCase: GetResultsUseCase,
     private readonly downloadResultsUseCase: DownloadResultsUseCase,
-    private readonly createResultUseCase: CreateResultUseCase
+    private readonly createResultUseCase: CreateResultUseCase,
   ) {}
 
   @Get('patient/:id')
