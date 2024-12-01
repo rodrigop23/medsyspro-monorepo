@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "result" (
+CREATE TABLE "results" (
     "id" TEXT NOT NULL,
     "patientId" TEXT NOT NULL,
     "type" TEXT NOT NULL,
@@ -7,6 +7,7 @@ CREATE TABLE "result" (
     "nombre" TEXT NOT NULL,
     "descripcion" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "result_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "results_pkey" PRIMARY KEY ("id")
 );

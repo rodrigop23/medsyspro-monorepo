@@ -1,5 +1,5 @@
 {
-  "name": "@repo/result-deb-prisma",
+  "name": "@repo/result-db-prisma",
   "version": "0.0.0",
   "private": true,
   "main": "dist/index.js",
@@ -12,7 +12,8 @@
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
     "generate": "prisma generate",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc -w"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
