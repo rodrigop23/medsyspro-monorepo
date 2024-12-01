@@ -35,4 +35,5 @@ yarn-error.log*
 
 .vscode
 
-pgdata
+results_pgdata
+user_pgdata
