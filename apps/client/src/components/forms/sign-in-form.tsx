@@ -66,7 +66,7 @@ export default function SignInForm() {
         return setGenericError(result.message);
       }
 
-      router.push("/");
+      router.push("/citas");
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
