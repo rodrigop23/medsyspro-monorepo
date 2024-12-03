@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id             Int          @id @default(autoincrement()) // Se puede usar cuid en lugar de autoincrement
+  name           String
+  firstSurname   String
+  secondSurname  String
+  email          String       @unique
+  password       String
+  birthdate      DateTime
+  documentType   DocumentType
+  documentNumber String       @unique
+  phone          String       @unique
+  role           Role         @default(PATIENT)
+  sessions       Session[]
+  messagesSent   Message[]    @relation("SentMessages")
+  messagesReceived Message[]  @relation("ReceivedMessages")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("patients")
+}
+
+model Session {
+  id        String   @id
+  patientId    Int
+  expiresAt DateTime
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Message {
+  id          Int       @id @default(autoincrement())
+  senderId    Int
+  receiverId  Int
+  content     String
+  sentAt      DateTime  @default(now())
+  isRead      Boolean   @default(false)
+
+  sender   Patient @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver Patient @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+enum DocumentType {
+  DNI
+  PASSPORT
+  CE
+}
+
+
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
