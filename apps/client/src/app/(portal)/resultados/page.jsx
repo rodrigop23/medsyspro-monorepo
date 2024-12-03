@@ -1,44 +1,59 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ResultadosTable from "./resultadosTable"; // Tabla para resultados de laboratorios
-import ImageViewer from "./imageViewer"; // Visor para imágenes médicas
-import Filters from "./filters"; // Filtros para buscar resultados
-import fetchResultados from "./resultadosApi"; // Función para obtener datos
+import ResultadosTable from "./resultadosTable";
+import ImageViewer from "./imageViewer";
+import Filters from "./filters";
+import fetchResultados from "./resultadosApi";
+import { getCurrentUserAction } from "@/actions/user.action";
 
 const Resultados = () => {
-  const [activeTab, setActiveTab] = useState("laboratorios"); // "laboratorios" | "imagenes"
-  const [data, setData] = useState([]); // Datos de laboratorio o imágenes
-  const [loading, setLoading] = useState(false); // Estado de carga
-  const [filters, setFilters] = useState({}); // Filtros seleccionados
+  const [activeTab, setActiveTab] = useState("laboratorios");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filters, setFilters] = useState({});
+  const [userRole, setUserRole] = useState(null);
+
+  // Cargar datos del usuario al montar el componente
+  useEffect(() => {
+    const fetchUserRole = async () => {
+      try {
+        const user = await getCurrentUserAction(); // Llamada al backend
+        setUserRole(user.role); // Extraer rol del usuario
+      } catch (error) {
+        console.error("Error obteniendo el usuario:", error);
+      }
+    };
+    fetchUserRole();
+  }, []);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setFilters({}); // Reiniciar filtros al cambiar de pestaña
+    setFilters({});
   };
 
-  // Cargar datos al cambiar de pestaña o aplicar filtros
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      const result = await fetchResultados(activeTab, filters); // Obtener datos con filtros
-      setData(result);
+      try {
+        const result = await fetchResultados(activeTab, filters); // Obtener datos desde el backend
+        setData(result);
+      } catch (error) {
+        console.error("Error cargando resultados:", error);
+      }
       setLoading(false);
     };
-
-    loadData();
-  }, [activeTab, filters]);
+    if (userRole) loadData(); // Solo cargar datos si ya conocemos el rol
+  }, [activeTab, filters, userRole]);
 
   return (
     <div className="bg-secondary min-h-screen flex flex-col items-center p-6">
       <div className="w-full max-w-6xl bg-accent rounded-lg shadow-md overflow-hidden">
-        {/* Encabezado */}
         <div className="bg-primary text-white text-center py-4">
-          <h1 className="text-2xl font-semibold"> Resultados</h1>
+          <h1 className="text-2xl font-semibold">Resultados</h1>
         </div>
 
         <div className="flex">
-          {/* Sidebar */}
           <div className="w-1/4 bg-secondary border-r">
             <button
               onClick={() => handleTabChange("laboratorios")}
@@ -58,18 +73,27 @@ const Resultados = () => {
             </button>
           </div>
 
-          {/* Contenido Principal */}
           <div className="w-3/4 p-6">
-            {/* Filtros */}
-            <Filters activeTab={activeTab} setFilters={setFilters} />
-
-            {/* Contenido según la pestaña activa */}
-            {loading ? (
-              <p className="text-center text-gray-700 mt-6">Cargando datos...</p>
-            ) : activeTab === "laboratorios" ? (
-              <ResultadosTable data={data} />
+            {userRole ? (
+              <>
+                <Filters activeTab={activeTab} setFilters={setFilters} />
+                {loading ? (
+                  <p className="text-center text-gray-700 mt-6">Cargando datos...</p>
+                ) : activeTab === "laboratorios" ? (
+                  <>
+                    {userRole === "DOCTOR" && (
+                      <button className="mb-4 bg-gray-700 text-white px-4 py-2 rounded">
+                        Crear nuevo resultado
+                      </button>
+                    )}
+                    <ResultadosTable data={data} role={userRole} />
+                  </>
+                ) : (
+                  <ImageViewer images={data} />
+                )}
+              </>
             ) : (
-              <ImageViewer images={data} />
+              <p className="text-center mt-6">Cargando usuario...</p>
             )}
           </div>
         </div>
@@ -79,4 +103,3 @@ const Resultados = () => {
 };
 
 export default Resultados;
-

@@ -1,3 +1,21 @@
+const fetchResultados = async (tab, filters) => {
+  try {
+    const queryParams = new URLSearchParams(filters).toString();
+    const response = await fetch(`/api/resultados?tab=${tab}&${queryParams}`);
+    if (!response.ok) {
+      throw new Error("Error al obtener resultados");
+    }
+    return await response.json(); // Supone que el backend retorna JSON
+  } catch (error) {
+    console.error("Error en fetchResultados:", error);
+    return [];
+  }
+};
+
+export default fetchResultados;
+
+
+/*
 const fetchResultados = async (tab) => {
     // Simulación de datos según la pestaña activa
     if (tab === "laboratorios") {
@@ -16,3 +34,4 @@ const fetchResultados = async (tab) => {
   };
   
   export default fetchResultados;
+*/
