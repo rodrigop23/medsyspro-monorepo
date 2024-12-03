@@ -8,6 +8,9 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "../../lib/utils";
 
 export default function NavHeader() {
   const { state, isMobile } = useSidebar();
@@ -27,6 +30,18 @@ export default function NavHeader() {
         </div>
 
         {(isExpanded || isMobile) && <SidebarTrigger closeIcon />}
+      </SidebarMenuItem>
+
+      <SidebarMenuItem>
+        <Link
+          href="/"
+          className={cn(
+            buttonVariants({ size: "sm" }),
+            "bg-teal-600 hover:bg-teal-700 w-full"
+          )}
+        >
+          Ir al Inicio
+        </Link>
       </SidebarMenuItem>
     </SidebarMenu>
   );
