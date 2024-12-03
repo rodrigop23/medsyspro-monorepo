@@ -1,6 +1,6 @@
 "use client";
 
-import { StethoscopeIcon } from "lucide-react";
+import { HomeIcon, StethoscopeIcon } from "lucide-react";
 
 import {
   SidebarMenu,
@@ -40,7 +40,7 @@ export default function NavHeader() {
             "bg-teal-600 hover:bg-teal-700 w-full"
           )}
         >
-          Ir al Inicio
+          {isExpanded || isMobile ? "Ir al Inicio" : <HomeIcon />}
         </Link>
       </SidebarMenuItem>
     </SidebarMenu>
