@@ -1,18 +1,15 @@
-const fetchResultados = async (tab, filters) => {
+const fetchResultados = async (filters) => {
   try {
-    const queryParams = new URLSearchParams(filters).toString();
-    const response = await fetch(`/api/resultados?tab=${tab}&${queryParams}`);
-    if (!response.ok) {
-      throw new Error("Error al obtener resultados");
-    }
-    return await response.json(); // Supone que el backend retorna JSON
+    const patientId = filters.patientId;
+    const url = `http://localhost:4001/results/patient/1`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Error al obtener resultados");
+    return await response.json();
   } catch (error) {
-    console.error("Error en fetchResultados:", error);
+    console.error(error);
     return [];
   }
 };
-
-export default fetchResultados;
 
 
 /*

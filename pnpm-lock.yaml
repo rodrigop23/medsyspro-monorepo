@@ -413,6 +413,25 @@ importers:
         specifier: ^5.1.3
         version: 5.5.4
 
+  packages/chat-db-prisma:
+    dependencies:
+      '@prisma/client':
+        specifier: ^5.21.1
+        version: 5.22.0(prisma@5.22.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      prisma:
+        specifier: ^5.21.1
+        version: 5.22.0
+      tsx:
+        specifier: ^4.19.2
+        version: 4.19.2
+      typescript:
+        specifier: 5.5.4
+        version: 5.5.4
+
   packages/result-db-prisma:
     dependencies:
       '@prisma/client':

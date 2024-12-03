@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ResultadosTable from "./resultadosTable";
-import ImageViewer from "./imageViewer";
-import Filters from "./filters";
-import fetchResultados from "./resultadosApi";
 import { getCurrentUserAction } from "@/actions/user.action";
+import Filters from "./filters"
+import ResultadosTable from "./resultadosTable"
+import ImageViewer from "./imageViewer"
 
 const Resultados = () => {
   const [activeTab, setActiveTab] = useState("laboratorios");
@@ -14,86 +13,95 @@ const Resultados = () => {
   const [filters, setFilters] = useState({});
   const [userRole, setUserRole] = useState(null);
 
-  // Cargar datos del usuario al montar el componente
+  // Simula la obtención del rol del usuario
   useEffect(() => {
     const fetchUserRole = async () => {
-      try {
-        const user = await getCurrentUserAction(); // Llamada al backend
-        setUserRole(user.role); // Extraer rol del usuario
-      } catch (error) {
-        console.error("Error obteniendo el usuario:", error);
+      // Simula la acción real para obtener el usuario
+      const user = await getCurrentUserAction();// Debes reemplazar esto por la acción real
+      setUserRole(user.role);
+      if (user.role === "PATIENT") {
+        setFilters({ patientId: user.id });
       }
     };
+
     fetchUserRole();
   }, []);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setFilters({});
   };
 
   useEffect(() => {
-    const loadData = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const result = await fetchResultados(activeTab, filters); // Obtener datos desde el backend
-        setData(result);
+        const response = await fetchResultados(filters);
+        setData(response);
       } catch (error) {
-        console.error("Error cargando resultados:", error);
+        console.error("Error al cargar resultados:", error);
       }
       setLoading(false);
     };
-    if (userRole) loadData(); // Solo cargar datos si ya conocemos el rol
-  }, [activeTab, filters, userRole]);
+
+    if (filters.patientId) {
+      fetchData();
+    }
+  }, [filters]);
 
   return (
-    <div className="bg-secondary min-h-screen flex flex-col items-center p-6">
-      <div className="w-full max-w-6xl bg-accent rounded-lg shadow-md overflow-hidden">
-        <div className="bg-primary text-white text-center py-4">
-          <h1 className="text-2xl font-semibold">Resultados</h1>
+    <div className="min-h-screen p-6 bg-gray-100">
+      <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg">
+        <div className="p-4 bg-gray-600 text-white text-center">
+          <h1 className="text-xl font-bold">Resultados Médicos</h1>
         </div>
-
         <div className="flex">
-          <div className="w-1/4 bg-secondary border-r">
+          {/* Tabs */}
+          <div className="w-1/4 p-4 border-r">
             <button
               onClick={() => handleTabChange("laboratorios")}
-              className={`w-full text-left px-6 py-4 text-lg font-medium hover:bg-primary hover:text-white ${
-                activeTab === "laboratorios" ? "bg-primary text-white" : ""
+              className={`block w-full p-3 mb-2 text-left rounded ${
+                activeTab === "laboratorios"
+                  ? "bg-gray-600 text-white"
+                  : "bg-gray-200"
               }`}
             >
               Laboratorios
             </button>
             <button
               onClick={() => handleTabChange("imagenes")}
-              className={`w-full text-left px-6 py-4 text-lg font-medium hover:bg-primary hover:text-white ${
-                activeTab === "imagenes" ? "bg-primary text-white" : ""
+              className={`block w-full p-3 text-left rounded ${
+                activeTab === "imagenes"
+                  ? "bg-gray-600 text-white"
+                  : "bg-gray-200"
               }`}
             >
               Imágenes Médicas
             </button>
           </div>
 
-          <div className="w-3/4 p-6">
+          {/* Content */}
+          <div className="w-3/4 p-4">
             {userRole ? (
               <>
                 <Filters activeTab={activeTab} setFilters={setFilters} />
+                {userRole === "DOCTOR" && activeTab === "laboratorios" && (
+                  <button
+                    onClick={() => createNewResult()}
+                    className="mb-4 px-4 py-2 bg-gray-600 text-white rounded"
+                  >
+                    Crear nuevo resultado
+                  </button>
+                )}
                 {loading ? (
-                  <p className="text-center text-gray-700 mt-6">Cargando datos...</p>
+                  <p>Cargando...</p>
                 ) : activeTab === "laboratorios" ? (
-                  <>
-                    {userRole === "DOCTOR" && (
-                      <button className="mb-4 bg-gray-700 text-white px-4 py-2 rounded">
-                        Crear nuevo resultado
-                      </button>
-                    )}
-                    <ResultadosTable data={data} role={userRole} />
-                  </>
+                  <ResultadosTable data={data} />
                 ) : (
                   <ImageViewer images={data} />
                 )}
               </>
             ) : (
-              <p className="text-center mt-6">Cargando usuario...</p>
+              <p>Cargando usuario...</p>
             )}
           </div>
         </div>

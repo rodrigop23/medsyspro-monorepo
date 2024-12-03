@@ -1,14 +1,12 @@
-const ImageViewer = ({ images }) => {
-    return (
-      <div className="grid grid-cols-2 gap-4">
-        {images.map((image, index) => (
-          <div key={index} className="border rounded-lg overflow-hidden shadow-sm">
-            <p className="p-2 text-center text-gray-700 font-semibold">{image.nombre}</p>
-            <img src={image.url} alt={image.nombre} className="w-full" />
-          </div>
-        ))}
+const ImageViewer = ({ images }) => (
+  <div className="grid grid-cols-2 gap-4">
+    {images.map((image, index) => (
+      <div key={index} className="border rounded shadow">
+        <p className="p-2 text-center">{image.nombre}</p>
+        <img src={image.filePath} alt={image.nombre} className="w-full" />
       </div>
-    );
-  };
-  
-  export default ImageViewer;
+    ))}
+  </div>
+);
+
+export default ImageViewer;
