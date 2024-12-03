@@ -9,11 +9,14 @@ import NavHeader from "./nav-header";
 import NavFooter from "./nav-footer";
 import NavOptions from "./nav-options";
 import { getCurrentUserAction } from "@/actions/user.action";
+import { redirect } from "next/navigation";
 
 export default async function AppSidebar() {
   const user = await getCurrentUserAction();
 
-  console.log(user);
+  if (!user) {
+    return redirect("/sign-in");
+  }
 
   return (
     <Sidebar collapsible="icon">
